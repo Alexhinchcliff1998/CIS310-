@@ -1,2 +1,5 @@
-# CIS310-
-Working in the CS310 programming with C++ class
+# CS 310 C++
+## Contributors
+- Instructor: Professor Flowers 
+- Student: Alexander Hinchcliff
+- 

@@ -1,0 +1,53 @@
+// This program is written with weekly progressions
+#include <iostream> 
+using namespace std;
+
+// week 1 function
+void week1() {
+    cout << "Hello, C++!" << endl;
+}
+
+/* This program demonstrates basic input and output operations in C++ using cin and cout */
+/* This program originally contained two syntax errors as per assignment deliverables. */
+
+// week 2 function
+void week2() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num; // FIXED: removed stray '>' that caused syntax error
+    cout << "You entered: " << num << endl;
+}
+
+// week 3 selection function syntax errors using if/else/while
+void week3() {
+    int choice;
+    cout << "Enter a number other than 1: ";
+    cin >> choice;
+
+    if (choice == 1) { // FIXED: changed '=' to '==' for comparison instead of assignment
+        while (true) {
+            cout << "You are stuck!\n"; // FIXED: added missing semicolon
+            break; // FIXED: added break to stop infinite loop
+        }
+    } 
+    else {
+        cout << "You are free!\n" << endl;
+    }
+}
+
+// week 4 function demonstrating repetition control
+void week4() {
+    // This program demonstrates a simple for loop in C++
+    for (int i = 1; i <= 5; i++) {
+        cout << "Count to 5: " << i << endl;
+    }
+}
+
+int main() {
+    // week1(); // comment out to run without
+    // week2(); // comment out to run without
+    // week3(); // comment out to run without
+    week4();   // comment out to run without
+
+    return 0; // FIXED: moved return statement inside main properly
+}

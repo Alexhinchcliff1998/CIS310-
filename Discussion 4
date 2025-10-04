@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int level = 1;
+
+    // Repetition control using for loop
+    for (level; level <= 5; level++) 
+        cout << "Player reached level " << level << "!" << endl
+        if (level == 5)
+            cout << "Boss fight unlocked!" << endl;
+
+    cout << "Final level reached: " << leve << endl;
+
+    return 0;
+}

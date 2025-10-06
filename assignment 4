@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, t;  // variables for first dish time, additional time, and total time
+    cout << "Enter the time for the first dish (a): ";
+    cin >> a;
+    cout << "Enter the additional time per dish (b): ";
+    cin >> b;
+    cout << "Enter total time available (t): ";
+    cin >> t;
+
+    int totalTime = 0;   // total time used so far
+    int dishCount = 0;   // number of dishes Bianca can make
+    int currentDishTime = a;
+
+    // Keep adding dishes until time runs out
+    while (totalTime + currentDishTime <= t) {
+        totalTime += currentDishTime;
+        dishCount++;
+        currentDishTime += b;  // next dish takes b minutes longer
+    }
+
+    cout << "Bianca can prepare " << dishCount << " dishes." << endl;
+
+    return 0;
+}

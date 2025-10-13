@@ -1,0 +1,42 @@
+def calcBill(hourlyRate, consultTime, lowIncome):
+    # calculate how much to bill based on income and time
+    ratePerMin = hourlyRate / 60
+
+    if lowIncome:
+        # low income rule
+        if consultTime <= 30:
+            bill = 0
+        else:
+            extra = consultTime - 30
+            bill = 0.40 * ratePerMin * extra
+    else:
+        # normal income rule
+        if consultTime <= 20:
+            bill = 0
+        else:
+            extra = consultTime - 20
+            bill = 0.70 * ratePerMin * extra
+
+    return bill
+
+
+def main():
+    print("J&J Accounting Firm Billing System\n")
+
+    hourlyRate = float(input("Enter hourly rate: $"))
+    consultTime = float(input("Enter total consulting time (in minutes): "))
+    income = input("Low income? (yes or no): ")
+
+    if income.lower() == "yes":
+        lowIncome = True
+    else:
+        lowIncome = False
+
+    amount = calcBill(hourlyRate, consultTime, lowIncome)
+
+    print()
+    print("Billing amount: $", format(amount, ".2f"), sep="")
+
+
+# call main
+main()

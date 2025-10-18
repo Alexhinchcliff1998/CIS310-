@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+enum Weapon {Sword, Bow, Staff, Dagger};
+
+int main() {
+    Weapon playerWeapon = Gun; // ❌ Error 1: 'Gun' is not defined in the 'Weapon' enum
+
+    if(playerWeapon = Sword) // ❌ Error 2: assignment instead of comparison (should be '==')
+    {
+        cout << "You equipped a sword!" << endl;
+    }
+    else
+    {
+        cout << "You equipped a different weapon!" << endl;
+    }
+
+    return 0;
+}

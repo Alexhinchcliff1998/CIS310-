@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int numbers[3][3]; // Two-dimensional array
+
+    // Fill the array with values
+    for (int i = 0; i <= 3; i++) { // ERROR #1: should be i < 3
+        for (int j = 0; j < 3; j++) {
+            numbers[i][j] = i + j;
+        }
+    }
+
+    // Display the array
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            cout << num[i][j] << " "; // ERROR #2: 'num' is undeclared (should be 'numbers')
+        }
+        cout << endl;
+    }
+
+    return 0;
+}

@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class bankAccount {
+private:
+  string name;
+  int accountNumber;
+  string accountType; // "checking" or "saving"
+  double balance;
+  double interestRate; // decimal, e.g., 0.03 for 3%
+  static int nextAccountNumber; // static to give each account a unique number
+
+public:
+  // Constructor
+  bankAccount(string n = "", string type = "checking", double bal = 0.0, double rate = 0.0) {
+  name = n;
+  accountType = type;
+  balance = bal;
+  interestRate = rate;
+  accountNumber = nextAccountNumber++;
+}
+
+// Show account info
+void displayAccount() {
+   cout << "Name: " << name << endl;
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Type: " << accountType << endl;
+        cout << "Balance: $" << balance << endl;
+        cout << "Interest Rate: " << interestRate * 100 << "%" << endl;
+        cout << "------------------" << endl;
+    }
+
+    // Deposit money
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited $" << amount << endl;
+        } else {
+            cout << "Invalid deposit!" << endl;
+        }
+    }
+
+    // Withdraw money
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "Withdrew $" << amount << endl;
+        } else {
+            cout << "Not enough money or invalid amount!" << endl;
+        }
+    }
+
+    // Apply interest
+    void applyInterest() {
+        balance += balance * interestRate;
+        cout << "Interest added." << endl;
+    }
+};
+
+// Initialize static member
+int bankAccount::nextAccountNumber = 1001;
+
+int main() {
+    // Array for 10 bank accounts
+    bankAccount accounts[10] = {
+        bankAccount("Alice", "checking", 500, 0.02),
+        bankAccount("Bob", "saving", 1000, 0.03),
+        bankAccount("Charlie", "checking", 250, 0.015)
+        // rest will be default accounts
+    };
+
+    // Try some actions
+    accounts[0].deposit(100);
+    accounts[1].withdraw(200);
+    accounts[2].applyInterest();
+
+    // Show all accounts
+    for (int i = 0; i < 10; i++) {
+        accounts[i].displayAccount();
+    }
+
+    return 0;
+}

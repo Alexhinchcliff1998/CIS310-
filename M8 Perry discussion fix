@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+
+// const variable to set the size of the robotArmy membership array
+const int16_t ROBOT_ARMY_CAPACITY = 10;
+
+// Robot class declaration
+class robot {
+    std::string name;
+    bool poweredOn;
+public:
+    robot(std::string n) : name(n), poweredOn(false) {
+        std::cout << "Initializing " << name << "..." << std::endl;
+    }
+
+    std::string getName() {
+        return name;
+    }
+
+    void turnOn() {
+        if (poweredOn)
+            std::cout << name << " is already on!" << std::endl;
+        else {
+            std::cout << name << " booting up..." << std::endl;
+            poweredOn = true;
+        }
+    }
+
+    void turnOff() {
+        if (!poweredOn)
+            std::cout << name << " is already off!" << std::endl;
+        else {
+            std::cout << name << " shutting down..." << std::endl;
+            poweredOn = false;
+        }
+    }
+};
+
+// Class that contains an array of robot objects
+class robotArmy {
+    robot* membership[ROBOT_ARMY_CAPACITY]{nullptr};
+public:
+    robotArmy() {
+        for (int i = 0; i < ROBOT_ARMY_CAPACITY; ++i) {
+            membership[i] = new robot("drone_" + std::to_string(i));
+        }
+    }
+
+    ~robotArmy() {
+        for (int i = 0; i < ROBOT_ARMY_CAPACITY; ++i) {
+            delete membership[i];
+            membership[i] = nullptr;
+        }
+    }
+
+    void displayMembers() {
+        for (int i = 0; i < ROBOT_ARMY_CAPACITY; ++i) {
+            if (membership[i] != nullptr)
+                std::cout << membership[i]->getName() << std::endl;
+        }
+    }
+
+    robot* getRobot(int16_t index) {
+        if (index >= 0 && index < ROBOT_ARMY_CAPACITY)
+            return membership[index];
+        return nullptr;
+    }
+};
+
+int main() {
+    robotArmy swarm_1;
+
+    // Accessing a specific robot
+    robot* r = swarm_1.getRobot(6);
+    if (r != nullptr) {
+        std::cout << r->getName() << std::endl;
+        r->turnOn();
+        r->turnOff(); // safely turn off without direct access to private variable
+    }
+
+    // Display all members
+    swarm_1.displayMembers();
+
+    return 0;
+}

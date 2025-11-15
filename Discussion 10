@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+struct DreamEntity {
+    string title;
+    int* manaLink;
+};
+
+void chargeMana(DreamEntity entity, int amount) {
+    *entity.manaLink = amount;
+    cout << "Charging " << entity.title << " with " << *entity.manaLink << " mana.\n";
+}
+
+int main() {
+    DreamEntity wraith;
+    wraith.title = "Pixel Wraith";
+    wraith.manaLink = new int(50)
+
+    chargeMana(wraith.manaPort, 200);
+
+    cout << "Mana now: " << *wraith.manaLink << endl;
+
+    delete wraith.manaLink;
+    return 0;
+}

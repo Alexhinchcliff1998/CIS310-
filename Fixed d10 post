@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int value = 25;
+    int* ptr = &value;
+
+    cout << "Value: " << *ptr << endl;
+    cout << "Value again: " << *prt << endl;     // error: 'prt' does not exist
+    cout << "Another value: " << *value << endl; // error: cannot dereference int
+
+    return 0;

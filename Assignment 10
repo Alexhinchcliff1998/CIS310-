@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int num;
+
+    cout << "How many candidates? ";
+    cin >> num;
+
+    string* names = new string[num];
+    int* votes = new int[num];
+
+    for (int i = 0; i < num; i++) {
+        cout << "Enter candidate name: ";
+        cin >> names[i];
+        cout << "Enter votes: ";
+        cin >> votes[i];
+    }
+
+    int total = 0;
+    for (int i = 0; i < num; i++) {
+        total += votes[i];
+    }
+
+    cout << "\nResults:\n";
+
+    int winner = 0;
+    for (int i = 0; i < num; i++) {
+        double percent = (static_cast<double>(votes[i]) / total) * 100;
+        cout << names[i] << " got " << votes[i] << " votes (" << percent << "%)\n";
+
+        if (votes[i] > votes[winner]) {
+            winner = i;
+        }
+    }
+
+    cout << "Winner: " << names[winner] << endl;
+
+    delete[] names;
+    delete[] votes;
+
+    return 0;
+}

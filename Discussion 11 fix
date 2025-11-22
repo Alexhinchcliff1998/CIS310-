@@ -1,0 +1,55 @@
+#include <iostream>
+#include <stdexcept>
+#include <string>
+using namespace std;
+
+template <class T>
+class SimpleBox {
+private:
+    T value;
+
+public:
+    // Use T() as a generic default value
+    SimpleBox(T v = T()) : value(v) {}
+
+    // Overloaded + operator
+    SimpleBox operator+(const SimpleBox& other) const {
+        return SimpleBox(value + other.value);
+    }
+
+    // Member function with exception handling
+    void divide(T amount) {
+        try {
+            if (amount == 0) {
+                throw runtime_error("Cannot divide by zero!");
+            }
+
+            value = value / amount;
+        }
+        catch (const runtime_error& e) {
+            // Fixed typo: what() instead of whaat()
+            cout << "Caught error: " << e.what() << endl;
+        }
+    }
+
+    void show() const {
+        cout << "Value: " << value << endl;
+    }
+};
+
+int main() {
+    SimpleBox<int> a(10);
+    SimpleBox<int> b(20);
+
+    SimpleBox<int> c = a + b;
+    c.show();
+
+    // This will trigger the exception
+    c.divide(0);
+
+    // Use matching template type instead of int with string literal
+    SimpleBox<string> badBox("hello");
+    badBox.show();
+
+    return 0;
+}

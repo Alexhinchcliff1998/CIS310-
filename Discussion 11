@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+class TerrainChunk {
+private:
+    int id;
+    int polygons;
+
+public:
+    // Default constructor (for generic loading)
+    TerrainChunk() : id(-1), polygons(0) {}
+
+    // Regular constructor
+    TerrainChunk(int id, int polys) : id(id), polygons(polys) {}
+
+    // Overloaded + operator to "merge" terrain chunks
+    TerrainChunk operator+(const TerrainChunk& other) const {
+        return TerrainChunk(id, polygons + other.polygons);
+    }
+
+    void print() const {
+        std::cout << "TerrainChunk " << id
+                  << " with " << polygons
+                  << " polygons loaded into the world.\n";
+    }
+};
+
+// Simple class template for loading resources (like terrain files)
+template <typename T>
+class ResourceLoader {
+public:
+    T load(const std::string& path) {
+        try {
+            if (path.empty()) {
+                throw std::runtime_error("Path to terrain file is empty.");
+            }
+
+            std::cout << "Loading resource from: " << path << std::endl;
+
+            // In a real game, you would read from disk here.
+            // For this example, just pretend we loaded a terrain chunk.
+            return T(42, 5000);  // "fake" terrain data
+
+        } catch (const std::exception& ex) {
+            // Intentionally buggy catch block (for debugging exercise)
+            std::cout << "Failed to load terrain from " << filePath
+                      << ": " << ex.what() << std::endl;
+
+            // Return a default-constructed resource
+            return T();
+        }
+    }
+};
+
+int main() {
+    std::cout << "Starting terrain loading demo...\n";
+
+    TerrainChunk grassland(1, 1200);
+    TerrainChunk mountain(2, 3400);
+
+    // Combine two terrain chunks into one big chunk
+    TerrainChunk worldChunk = grassland + mountain;
+
+    worldChunk.print();
+
+    // Use the template loader to "load" another terrain chunk
+    ResourceLoader<TerrainChunk> loader;
+    TerrainChunk loadedChunk = loader.load("maps/overworld_terrain.map");
+
+    // Intentionally referencing a non-existing member function (for debugging exercise)
+    std::cout << "Loaded chunk polygon count: "
+              << loadedChunk.getPolygonCount() << std::endl;
+
+    std::cout << "Terrain loading complete.\n";
+    return 0;
+}

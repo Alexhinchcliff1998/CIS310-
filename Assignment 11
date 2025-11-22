@@ -1,0 +1,51 @@
+#include <iostream>
+#include <random>      // C++11 random number facilities
+#include <stdexcept>   // std::runtime_error
+#include <iomanip>     // std::fixed, std::setprecision
+
+using namespace std;
+
+int main() {
+    // Set up C++11 random number generator
+    random_device rd;                 // non-deterministic seed
+    mt19937 gen(rd());                // Mersenne Twister engine
+    uniform_real_distribution<double> dist(10.0, 100.0);  // [10, 100]
+
+    cout << "=== Random Terrain Height Generator ===\n";
+    cout << "This program generates 25 random real numbers between 10 and 100.\n";
+    cout << "Optional: enable strict mode to trigger exceptions for certain values.\n\n";
+
+    char choice;
+    cout << "Enable strict mode for exception testing (y/n)? ";
+    cin >> choice;
+
+    bool strictMode = (choice == 'y' || choice == 'Y');
+
+    cout << "\nGenerating 25 random values...\n\n";
+    cout << fixed << setprecision(2);
+
+    for (int i = 0; i < 25; ++i) {
+        try {
+            double value = dist(gen);  // generate a random real number
+
+            // In strict mode, throw an exception if value is in a "forbidden" range
+            // For example, pretend values between 40 and 50 represent unstable terrain.
+            if (strictMode && value >= 40.0 && value <= 50.0) {
+                throw runtime_error("Value fell into forbidden unstable-terrain range (40–50).");
+            }
+
+            cout << "Value " << setw(2) << (i + 1) << ": " << value << "  -> OK" << endl;
+        }
+        catch (const runtime_error& ex) {
+            // Handle our custom runtime errors
+            cout << "Value " << setw(2) << (i + 1) << ": EXCEPTION -> " << ex.what() << endl;
+        }
+        catch (...) {
+            // Catch-all, just in case something unexpected happens
+            cout << "Value " << setw(2) << (i + 1) << ": UNKNOWN EXCEPTION OCCURRED" << endl;
+        }
+    }
+
+    cout << "\nGeneration complete. Program ending normally.\n";
+    return 0;
+}
